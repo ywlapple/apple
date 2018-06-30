@@ -1,18 +1,69 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+		springCloudVersion = 'Finchley.RELEASE'
+	}
+	repositories {
+		maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+
+
+allprojects {
+
+}
+
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    
+    sourceCompatibility = 1.9
+    targetCompatibility = 1.9
+    	
+	group = 'com.fish.apple'
+	version = '0.0.1-SNAPSHOT'
+	
+	ext {
+		springCloudVersion = 'Finchley.RELEASE'
+	}
+
 
     repositories {
+       maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
        mavenCentral()
     }
+    
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    
+    dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
+	}
+	
+	configurations {
+		compile.exclude group: 'org.springframework.boot' , module: 'spring-boot-starter-logging'
+	}
 
     dependencies {
+    	compileOnly 'org.projectlombok:lombok'
         testCompile 'junit:junit:4.8.2'
     }
-
-    version = '1.0'
 
     jar {
         manifest.attributes provider: 'my cool company'
     }
+    
+    
+	
 }
