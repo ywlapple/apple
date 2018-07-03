@@ -3,7 +3,7 @@ package com.fish.apple.user.bo;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.fish.apple.core.common.BaseDomain;
+import com.fish.apple.core.common.domain.Domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,12 +12,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Entity
 @Table(name="t_user_menu")
-public class Menu extends BaseDomain {
-
+public class Menu extends Domain  {
+	
+	private static final long serialVersionUID = -6523249851377866288L;
+    
 	private String name;
 	private String disName;
 	private String url;
-	
-	
 	
 }

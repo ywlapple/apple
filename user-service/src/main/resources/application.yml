@@ -5,9 +5,9 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     
   datasource:
-    url: jdbc:mysql://localhost:3306/db_example
-    username: springuser
-    password: ThePassword
+    url: jdbc:mysql://localhost:3306/customer??characterEncoding=utf8&useSSL=true
+    username: apple
+    password: apple

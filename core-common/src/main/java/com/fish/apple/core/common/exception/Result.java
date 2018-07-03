@@ -1,6 +1,6 @@
 package com.fish.apple.core.common.exception;
 
-import com.fish.apple.core.common.EnumBase;
+import com.fish.apple.core.common.domain.EnumBase;
 
 public enum Result implements EnumBase {
 	Success("0" , "成功"),

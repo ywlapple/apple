@@ -1,2 +1,2 @@
-
-include "core-common","core-util" , "core-web" ,"user-service"  ,"user-facade" ,"user-domain" , "gateway" , "app"
+include "core-common", "core-web" ,"user-domain" , "user-service"
+// include "core-common","core-util" , "core-web" ,"user-service"  ,"user-facade" ,"user-domain" , "gateway" , "app"

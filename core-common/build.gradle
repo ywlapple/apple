@@ -1,6 +1,3 @@
-dependencies {
-	// compile project(':my-lib')
-	compile('com.fasterxml.jackson.core:jackson-annotations')
-	compile('org.apache.commons:commons-lang3')
-	compile('org.hibernate.javax.persistence:hibernate-jpa-2.1-api')
-}
+
+
+

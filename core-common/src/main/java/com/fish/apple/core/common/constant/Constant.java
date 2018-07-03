@@ -1,6 +1,6 @@
 package com.fish.apple.core.common.constant;
 
-import com.fish.apple.core.common.EnumBase;
+import com.fish.apple.core.common.domain.EnumBase;
 
 public enum Constant implements EnumBase {
 	VISITOR( "游客"),

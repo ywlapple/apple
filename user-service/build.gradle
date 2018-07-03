@@ -1,6 +1,8 @@
+apply plugin: 'org.springframework.boot'
 dependencies {
-	compile project(':user-domain')
-	compile 'com.fishstone.apple:core-common'
+	compile('com.fish.apple:core-common:0.0.1-SNAPSHOT')
+	compile('com.fish.apple:core-web:0.0.1-SNAPSHOT')
+	compile('com.fish.apple:user-domain:0.0.1-SNAPSHOT')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-configuration-processor')

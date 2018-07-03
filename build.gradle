@@ -4,6 +4,7 @@ buildscript {
 		springCloudVersion = 'Finchley.RELEASE'
 	}
 	repositories {
+		maven { url "file://F:/repository/maven" }
 		maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
 		mavenCentral()
 	}
@@ -12,33 +13,39 @@ buildscript {
 	}
 }
 
-
-
-allprojects {
-
+ext {
+	springCloudVersion = 'Finchley.RELEASE'
+	appVersion = '0.0.1-SNAPSHOT'
+	appGroup = 'com.fish.apple'
 }
-
+group = 'com.fish.apple'
+version = '0.0.1-SNAPSHOT'
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'maven'
-    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'maven-publish'
+//    apply plugin: 'org.springframework.boot'
     
     sourceCompatibility = 1.9
     targetCompatibility = 1.9
+    
+	ext {
+		springCloudVersion = 'Finchley.RELEASE'
+		appVersion = '0.0.1-SNAPSHOT'
+		appGroup = 'com.fish.apple'
+	}
     	
 	group = 'com.fish.apple'
 	version = '0.0.1-SNAPSHOT'
 	
-	ext {
-		springCloudVersion = 'Finchley.RELEASE'
-	}
 
 
     repositories {
+       maven { url "file://F:/repository/maven" }
        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
        mavenCentral()
     }
@@ -49,6 +56,8 @@ subprojects {
 		imports {
 			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 		}
+//		compile("${appGroup}:core-common:${appVersion}")
+//		compile("${appGroup}:core-web:${appVersion}")
 	}
 	
 	configurations {
@@ -56,7 +65,7 @@ subprojects {
 	}
 
     dependencies {
-    	compileOnly 'org.projectlombok:lombok'
+    	compileOnly 'org.projectlombok:lombok:1.16.22'
         testCompile 'junit:junit:4.8.2'
     }
 
@@ -64,6 +73,39 @@ subprojects {
         manifest.attributes provider: 'my cool company'
     }
     
-    
-	
+    uploadArchives {
+	    repositories {
+	        mavenDeployer {
+	            repository(url: uri("file://F:/repository/maven"))
+	            pom.project {
+	                name = project.name
+	                packaging = 'jar'
+	                description = 'description'
+	            }
+	        }
+	    }
+	}
+
 }
+
+project(':core-common') {
+	dependencies {
+		compileOnly('com.fasterxml.jackson.core:jackson-annotations:2.9.0')
+		compileOnly('org.apache.commons:commons-lang3:3.7')
+		compileOnly('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final')
+		compileOnly('org.springframework.data:spring-data-commons:2.0.8.RELEASE')
+		compileOnly('org.springframework.data:spring-data-jpa:2.0.8.RELEASE')
+	}
+}
+project(':core-web') {
+	dependencies {
+		compile "com.fish.apple:core-common:0.0.1-SNAPSHOT"
+		compileOnly('org.apache.commons:commons-lang3:3.7')
+		compileOnly "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+		compileOnly "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
+		compileOnly "org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion"
+		compileOnly "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+		compileOnly "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+	}
+}
+

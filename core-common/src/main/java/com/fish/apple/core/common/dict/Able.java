@@ -1,6 +1,6 @@
 package com.fish.apple.core.common.dict;
 
-import com.fish.apple.core.common.EnumBase;
+import com.fish.apple.core.common.domain.EnumBase;
 
 public enum Able implements EnumBase {
 	enable( "启用"),

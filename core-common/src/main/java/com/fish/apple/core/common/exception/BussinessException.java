@@ -2,7 +2,7 @@ package com.fish.apple.core.common.exception;
 
 import java.util.ArrayList;
 
-import com.fish.apple.core.common.EnumBase;
+import com.fish.apple.core.common.domain.EnumBase;
 
 
 /**
