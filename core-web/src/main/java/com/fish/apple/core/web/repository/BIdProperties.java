@@ -13,11 +13,11 @@ import com.fish.apple.core.web.repository.IdFactory.IdInfo;
 import lombok.Data;
 
 @ConfigurationProperties(prefix = BIdProperties.ENTITY_PREFIX)
-//@Component
+@Component
 @Data
 public class BIdProperties implements InitializingBean{
 
-	public static final String ENTITY_PREFIX = "app.entity.";
+	public static final String ENTITY_PREFIX = "app.entity";
 	
 	/**
 	 * key: class name
@@ -36,7 +36,7 @@ public class BIdProperties implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO , 扫描basePackage 路径下的 entity，根据@BId获取相关信息，如果配置中已经配置，则不做覆盖
-		
+		System.out.println("bidProperties 配置完成");
 //		final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
 //		provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
 //		final Set<BeanDefinition> beans = provider.findCandidateComponents(basePackage);

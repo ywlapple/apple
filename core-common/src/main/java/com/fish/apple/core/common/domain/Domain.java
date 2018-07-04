@@ -16,11 +16,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fish.apple.core.web.repository.BIdListener;
 
 import lombok.Data;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class,BIdListener.class})
 @Data
 public class Domain implements Serializable {
 

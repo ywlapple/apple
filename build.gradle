@@ -73,6 +73,20 @@ subprojects {
         manifest.attributes provider: 'my cool company'
     }
     
+    task sourcesJar(type: Jar, dependsOn: classes) {
+	    classifier = 'sources'
+	    from sourceSets.main.allSource
+	}
+	artifacts {
+	    archives sourcesJar
+	}
+    install {
+	    repositories.mavenInstaller {
+	        pom.version = "$project.version"
+	        pom.artifactId = "$project.name"
+	        pom.groupId = "$project.group"
+	    }
+	}
     uploadArchives {
 	    repositories {
 	        mavenDeployer {
@@ -90,6 +104,7 @@ subprojects {
 
 project(':core-common') {
 	dependencies {
+		compileOnly("com.fish.apple:core-web:0.0.1-SNAPSHOT")
 		compileOnly('com.fasterxml.jackson.core:jackson-annotations:2.9.0')
 		compileOnly('org.apache.commons:commons-lang3:3.7')
 		compileOnly('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final')

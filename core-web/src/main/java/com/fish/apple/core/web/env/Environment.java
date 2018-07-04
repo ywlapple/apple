@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class Environment {
 
-	private static ThreadLocal<Environment> currentEnv;
+	private static ThreadLocal<Environment> currentEnv = new ThreadLocal<>();
 	
 	private User user;
 	private WebEnv webEnv;
@@ -54,7 +54,7 @@ public class Environment {
 		user.setTenantCode(tenantCode);
 		user.setUserNo(userNo);
 		WebEnv webEnv = new WebEnv();
-		webEnv.setUrl(url);
+		webEnv.setPath(url);
 		return initEnv(webEnv , user, null);
 	}
 	
@@ -97,12 +97,11 @@ public class Environment {
 		String operaId = parentEnv.getOperId() ;
 		operaId = operaId + "-" + UUID.randomUUID().toString().replaceAll("-", "");
 		env.setOperId(operaId);
-		WebEnv webEnv = new WebEnv();
 		WebEnv parengWebEnv = parentEnv.getWebEnv();
-		webEnv.setUrl(parengWebEnv.getUrl());
+		env.setWebEnv(parengWebEnv);
+		
 		env.setStartTime(System.currentTimeMillis());
 		env.setLevel(parentEnv.getLevel() + 1);
-		env.setWebEnv(webEnv);
 		currentEnv.set(env);
 		initLogEnv();
 	}
@@ -112,9 +111,9 @@ public class Environment {
 	}
 	public static void initLogEnv() {
 		MDC.put(Constant.threadId.getCode(), Environment.currentEnv().getOperId());
-		MDC.put(Constant.urlPath.getCode(), Environment.currentWebEnv().getUrl());
+		MDC.put(Constant.urlPath.getCode(), Environment.currentWebEnv().getPath());
 		MDC.put(Constant.httpMethod.getCode(), Environment.currentWebEnv().getHttpMethod());
-		MDC.put(Constant.startTime.getCode(), Environment.currentWebEnv().getHttpMethod());
+		MDC.put(Constant.startTime.getCode(), format.format(new Date(Environment.currentEnv().getStartTime())));
 	}
 	public static void initLogEnv(Method method) {
 		WebEnv currentWebEnv = Environment.currentWebEnv();

@@ -15,8 +15,8 @@ public enum Constant implements EnumBase {
 	time("TIME" ,  "耗时") ,
 	startTime("START_TIME" ,  "开始时间") ,
 	endTime("END_TIME" ,  "结束时间") ,
-	scheduleInstancePropertyKey("org.quartz.scheduler.instanceName: DefaultQuartzScheduler" , "调度器实例名称配置key")
-	
+	scheduleInstancePropertyKey("org.quartz.scheduler.instanceName: DefaultQuartzScheduler" , "调度器实例名称配置key") ,
+	coreLog("com.fish.apple.core.log" , "核心包日志log名称")
 	
 	
 	;

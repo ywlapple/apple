@@ -1,13 +1,10 @@
 package com.fish.apple.user;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories
-@SpringBootApplication
-@EnableJpaAuditing
+import com.fish.apple.core.web.app.AppleApp;
+
+@AppleApp
 public class UserApplication {
 
 	

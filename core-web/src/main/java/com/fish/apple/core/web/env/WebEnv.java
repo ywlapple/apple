@@ -5,8 +5,10 @@ import lombok.Data;
 @Data
 public class WebEnv {
 
-	private String url;
+	private String path;
+	private String contentPath;
 	private String httpMethod;
+	
 	private String classUrl;
 	private String methodUrl;
 	private String controller;

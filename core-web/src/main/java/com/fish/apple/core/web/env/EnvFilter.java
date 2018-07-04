@@ -11,46 +11,44 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+
+import com.fish.apple.core.common.constant.Constant;
 
 
 
 @Order(1)
 @WebFilter(filterName="authfilter" , urlPatterns="/*")
 public class EnvFilter implements Filter {
-
-	private String contentPath ;
+	private Logger log = LoggerFactory.getLogger(Constant.coreLog.getCode()) ;
+	
+	@Autowired
+	private EnvFactory envFactory ;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		contentPath = filterConfig.getServletContext().getContextPath();
-		
+		log.info("EnvFilter init .");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		HttpServletRequest req = (HttpServletRequest)request;
-		String uri = req.getRequestURI();
-		String path = uri.substring(contentPath.length()+1);
-		int index = path.indexOf("/");
-		String tenantCode = path.substring(0 ,index );
-		String userNo = null;
-		User user = new User();
-		user.setTenantCode(tenantCode);
-		user.setUserNo(userNo);
-		
-		WebEnv webEnv = new WebEnv();
-		webEnv.setUrl(path);
-		webEnv.setMethod(req.getMethod());
-		Environment.initEnv(webEnv, user , null);
+		if(log.isDebugEnabled()) {
+			log.debug("EnvFilter intercept :" + req.getRequestURI());
+		}
+		WebEnv fillWeb = envFactory.fillWeb(req);
+		User fillUser = envFactory.fillUser(req);
+		Environment.initEnv(fillWeb, fillUser , null);
 		
 		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void destroy() {
-		
+		log.info("EnvFilter destroy .");
 	}
 
 	

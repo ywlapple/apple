@@ -12,7 +12,6 @@ public class AuditorProvider implements AuditorAware<String> {
 
 	@Override
 	public Optional<String> getCurrentAuditor() {
-		System.out.println("fdas");
 		return Optional.ofNullable(Environment.currentUserNo());
 	}
 

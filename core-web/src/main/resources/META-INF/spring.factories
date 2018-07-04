@@ -1,1 +1,2 @@
-com.fish.apple.core.web.repository.SequenceConfig=com.fish.apple.core.web.repository.SequenceConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fish.apple.core.web.repository.JPARepositoryConfiguration,\
+com.fish.apple.core.web.env.EnvConfigure

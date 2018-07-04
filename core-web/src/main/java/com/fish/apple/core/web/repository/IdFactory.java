@@ -6,18 +6,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class IdFactory {
-
 	@Autowired
 	private SequenceRepository repository;
 	private List<IdInfo> idInfoList;
 	private static IdFactory factory;
 	private IdInfo defaultIdInfo;
 	
+	@PostConstruct
 	public void init(){
 		factory = this;
 	}

@@ -2,12 +2,14 @@ package com.fish.apple.core.web.repository;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.fish.apple.core.web.env.User;
 
 @Configuration
-public class SequenceConfig {
+@ComponentScan(basePackages="com.fish.apple.core.web.repository")
+public class JPARepositoryConfiguration {
+	
 	@ConditionalOnMissingBean(SequenceRepository.class)
 	@Bean
 	public SequenceRepository securityEvaluationContextExtension() {
