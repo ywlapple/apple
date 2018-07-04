@@ -50,11 +50,14 @@ public class IdFactory {
 	
 	private String parseId(IdInfo idInfo){
 		if(null == idInfo){
+			idInfo = defaultIdInfo ;
+		}
+		if(null == idInfo ) {
 			return getUUID();
 		}
 		String pre = null == idInfo.getPrefix()? "":idInfo.getPrefix();
 		String middle = idInfo.getPattern();
-		String afterfix = null == idInfo.getAfterfix() ? "" : idInfo.getAfterfix() ;
+		String afterfix = null == idInfo.getSuffix() ? "" : idInfo.getSuffix() ;
 		
 		long sequence = repository.next(idInfo.getSequenceName());
 		
@@ -148,7 +151,7 @@ public class IdFactory {
 		private String sequenceName;
 		private String prefix;
 		private String pattern;
-		private String afterfix;
+		private String suffix;
 		public String getName() {
 			return name;
 		}
@@ -173,11 +176,11 @@ public class IdFactory {
 		public void setPattern(String pattern) {
 			this.pattern = pattern;
 		}
-		public String getAfterfix() {
-			return afterfix;
+		public String getSuffix() {
+			return suffix;
 		}
-		public void setAfterfix(String afterfix) {
-			this.afterfix = afterfix;
+		public void setSuffix(String suffix) {
+			this.suffix = suffix;
 		}
 		
 	}

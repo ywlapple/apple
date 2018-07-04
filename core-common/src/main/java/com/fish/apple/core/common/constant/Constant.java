@@ -8,6 +8,10 @@ public enum Constant implements EnumBase {
 	REDIS_PREFIX_ACCOUNT_IDNO("ACCOUNT_IDNO_", "redis中用户帐户信息key（证件身份）前缀"),
 	REDIS_PREFIX_ACCOUNT_VISITOR("VISITOR_" , "redis中用户帐户信息key（微信游客身份）前缀") ,
 	commonId("commonId" , "通用id"),
+	commonIdPattern("commonId" , "通用id格式"),
+	commonIdPrefix("BI" , "通用id前缀"),
+	commonIdSuffix("" , "通用id后缀"),
+	commonSequence("common" , "通用sequence名称"),
 	sqlWildcard("%" , "sql通配符") ,
 	threadId("THREAD_ID" , "线程Id"),
 	urlPath("URL_PATH" , "url路径"),
@@ -16,8 +20,8 @@ public enum Constant implements EnumBase {
 	startTime("START_TIME" ,  "开始时间") ,
 	endTime("END_TIME" ,  "结束时间") ,
 	scheduleInstancePropertyKey("org.quartz.scheduler.instanceName: DefaultQuartzScheduler" , "调度器实例名称配置key") ,
-	coreLog("com.fish.apple.core.log" , "核心包日志log名称")
-	
+	coreLog("com.fish.apple.core.log" , "核心包日志log名称") ,
+	DomainBasePackage("com.fish.apple" , "jpa扫描包含业务id的entity的基础包路径")
 	
 	;
 	

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fish.apple.core.common.domain.BId;
 import com.fish.apple.core.common.domain.Domain;
 
 import lombok.Data;
@@ -16,6 +17,8 @@ import lombok.EqualsAndHashCode;
 public class Account extends Domain {
 	private static final long serialVersionUID = 6650618645164486002L;
 
+	@BId
+	private String accountNo;
 	private String name;
 	private String password;
 	
