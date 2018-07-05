@@ -8,7 +8,7 @@ public enum Constant implements EnumBase {
 	REDIS_PREFIX_ACCOUNT_IDNO("ACCOUNT_IDNO_", "redis中用户帐户信息key（证件身份）前缀"),
 	REDIS_PREFIX_ACCOUNT_VISITOR("VISITOR_" , "redis中用户帐户信息key（微信游客身份）前缀") ,
 	commonId("commonId" , "通用id"),
-	commonIdPattern("commonId" , "通用id格式"),
+	commonIdPattern("yyyyMMdd0000" , "通用id格式"),
 	commonIdPrefix("BI" , "通用id前缀"),
 	commonIdSuffix("" , "通用id后缀"),
 	commonSequence("common" , "通用sequence名称"),

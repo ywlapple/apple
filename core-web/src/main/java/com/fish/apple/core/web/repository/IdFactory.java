@@ -15,10 +15,20 @@ import org.springframework.stereotype.Component;
 public class IdFactory {
 	@Autowired
 	private SequenceRepository repository;
-	private List<IdInfo> idInfoList;
+	@Autowired
+	private BIdProperties bIdProperties;
 	private static IdFactory factory;
-	private IdInfo defaultIdInfo;
 	
+	public BIdProperties getbIdProperties() {
+		return bIdProperties;
+	}
+
+
+	public void setbIdProperties(BIdProperties bIdProperties) {
+		this.bIdProperties = bIdProperties;
+	}
+
+
 	@PostConstruct
 	public void init(){
 		factory = this;
@@ -29,16 +39,19 @@ public class IdFactory {
 		if(null == factory){
 			throw new IllegalStateException("Id工厂未正确初始化");
 		}
-		return factory.parseId(factory.getDefaultIdInfo());
+		return factory.parseId(factory.getbIdProperties().getDefaultIdInfo());
 		
 	}
 	public static String getId(String idName){
 		if(null == factory){
 			throw new IllegalStateException("Id工厂未正确初始化");
 		}
-		for(IdInfo idInfo : factory.getIdInfoList()){
-			if(idName.equals(idInfo.getName())){
-				return factory.parseId(idInfo);
+		List<IdInfo> idInfoList = factory.getbIdProperties().getIdInfoList();
+		if(null != idInfoList) {
+			for(IdInfo idInfo : idInfoList ){
+				if(idName.equals(idInfo.getName())){
+					return factory.parseId(idInfo);
+				}
 			}
 		}
 		return factory.parseId(null);
@@ -50,7 +63,7 @@ public class IdFactory {
 	
 	private String parseId(IdInfo idInfo){
 		if(null == idInfo){
-			idInfo = defaultIdInfo ;
+			idInfo = bIdProperties.getDefaultIdInfo() ;
 		}
 		if(null == idInfo ) {
 			return getUUID();
@@ -127,23 +140,6 @@ public class IdFactory {
 		this.repository = repository;
 	}
 
-	public List<IdInfo> getIdInfoList() {
-		return idInfoList;
-	}
-
-	public void setIdInfoList(List<IdInfo> idInfoList) {
-		this.idInfoList = idInfoList;
-	}
-
-
-	public IdInfo getDefaultIdInfo() {
-		return defaultIdInfo;
-	}
-
-
-	public void setDefaultIdInfo(IdInfo defaultIdInfo) {
-		this.defaultIdInfo = defaultIdInfo;
-	}
 	
 	public static class IdInfo{
 		

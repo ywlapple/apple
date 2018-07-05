@@ -14,18 +14,14 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.fish.apple.core.common.constant.Constant;
 import com.fish.apple.core.common.domain.BId;
 import com.fish.apple.core.web.repository.IdFactory.IdInfo;
 
-import lombok.Data;
-
 @ConfigurationProperties(prefix = BIdProperties.ENTITY_PREFIX)
 @Component
-@Data
 public class BIdProperties implements InitializingBean{
 
 	public static final String ENTITY_PREFIX = "app.entity";
@@ -34,25 +30,20 @@ public class BIdProperties implements InitializingBean{
 	 * key: class name
 	 * value: sequence name
 	 */
-	private Map<String, String> bidInfo = new HashMap<>();
+	private static Map<String, String> bIdInfo = new HashMap<>();
+
 	/**
 	 * key: class name
 	 * value: business property name
 	 */
-	private Map<String, String> domainInfo = new HashMap<>();
+	private static Map<String, String> domainInfo = new HashMap<>();
 	
 	private String basePackage = Constant.DomainBasePackage.getCode();
-	
-	
-
-	
-	private ThreadPoolTaskExecutor sequenceThreadPoolTaskExecutor;
 	
 	private List<IdFactory.IdInfo> idInfoList ;
 	
 	private IdFactory.IdInfo defaultIdInfo ;
 	
-	private static BIdProperties bidProperties;
 	
 	public BIdProperties() {
 		IdInfo idInfo = new IdFactory.IdInfo();
@@ -77,7 +68,6 @@ public class BIdProperties implements InitializingBean{
 			Class<?> clazz = Class.forName(definition.getBeanClassName());
 			findFieldByAnnotion(clazz);
 		}
-		bidProperties = this;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -94,7 +84,7 @@ public class BIdProperties implements InitializingBean{
 					if(StringUtils.isBlank(idName)) {
 						idName = Constant.commonId.getCode() ;
 					}
-					bidInfo.putIfAbsent(clazz.getName(), idName);
+					bIdInfo.putIfAbsent(clazz.getName(), idName);
 				}
 			}
 		}
@@ -103,10 +93,52 @@ public class BIdProperties implements InitializingBean{
 	}
 	
 	
-	public static Map<String, String> getDomain(){
-		return bidProperties.getDomainInfo();
+	public static Map<String, String> getBIdInfo() {
+		return bIdInfo;
 	}
-	public static Map<String, String> getBId(){
-		return bidProperties.getBidInfo();
+
+
+	public void setBidInfo(Map<String, String> bidInfo) {
+		bIdInfo = bidInfo;
+	}
+
+
+	public static Map<String, String> getDomainInfo() {
+		return domainInfo;
+	}
+
+
+	public void setDomainInfo(Map<String, String> domainIno) {
+		domainInfo = domainIno;
+	}
+
+
+	public String getBasePackage() {
+		return basePackage;
+	}
+
+
+	public void setBasePackage(String basePackage) {
+		this.basePackage = basePackage;
+	}
+
+
+	public List<IdFactory.IdInfo> getIdInfoList() {
+		return idInfoList;
+	}
+
+
+	public void setIdInfoList(List<IdFactory.IdInfo> idInfoList) {
+		this.idInfoList = idInfoList;
+	}
+
+
+	public IdFactory.IdInfo getDefaultIdInfo() {
+		return defaultIdInfo;
+	}
+
+
+	public void setDefaultIdInfo(IdFactory.IdInfo defaultIdInfo) {
+		this.defaultIdInfo = defaultIdInfo;
 	}
 }

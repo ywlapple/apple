@@ -66,6 +66,7 @@ subprojects {
 
     dependencies {
     	compileOnly 'org.projectlombok:lombok:1.16.22'
+    	compile('org.apache.commons:commons-lang3:3.7')
         testCompile 'junit:junit:4.8.2'
     }
 
@@ -106,7 +107,6 @@ project(':core-common') {
 	dependencies {
 		compileOnly("com.fish.apple:core-web:0.0.1-SNAPSHOT")
 		compileOnly('com.fasterxml.jackson.core:jackson-annotations:2.9.0')
-		compileOnly('org.apache.commons:commons-lang3:3.7')
 		compileOnly('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final')
 		compileOnly('org.springframework.data:spring-data-commons:2.0.8.RELEASE')
 		compileOnly('org.springframework.data:spring-data-jpa:2.0.8.RELEASE')
@@ -115,7 +115,6 @@ project(':core-common') {
 project(':core-web') {
 	dependencies {
 		compile "com.fish.apple:core-common:0.0.1-SNAPSHOT"
-		compileOnly('org.apache.commons:commons-lang3:3.7')
 		compileOnly "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 		compileOnly "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
 		compileOnly "org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion"
