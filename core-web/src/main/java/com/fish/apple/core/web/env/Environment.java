@@ -36,23 +36,26 @@ public class Environment {
 	public static String currentOperId() {
         return currentEnv.get().getOperId() ;
 	}
-	public static String currentTenantCode() {
-		return currentEnv.get().getUser().getTenantCode() ;
+	public static String currentTenantNo() {
+		return currentEnv.get().getUser().getTenantNo() ;
 	}
 	public static User currentUser() {
 		return currentEnv.get().getUser();
 	}
-	public static String currentUserNo() {
-		return currentEnv.get().getUser().getUserNo();
+	public static String currentPersonNo() {
+		return currentEnv.get().getUser().getPersonNo();
 	}
 	public static Locale currentLocale() {
 		return currentEnv.get().getLocale();
 	}
+	public static String currentAccountNo() {
+		return currentEnv.get().getUser().getAccountNo();
+	}
 	
-	protected static Environment initEnv(String tenantCode , String userNo ,String url) {
+	protected static Environment initEnv(String tenantNo , String personNo ,String url) {
 		User user = new User();
-		user.setTenantCode(tenantCode);
-		user.setUserNo(userNo);
+		user.setTenantNo(tenantNo);
+		user.setPersonNo(personNo);
 		WebEnv webEnv = new WebEnv();
 		webEnv.setPath(url);
 		return initEnv(webEnv , user, null);
@@ -63,13 +66,17 @@ public class Environment {
 		if(null == user ) {
 			user = User.systemUser;
 		}else {
-			String userNo = user.getUserNo();
-			if(null == userNo || "".equals(userNo)) {
-				user.setUserNo(User.systemUser.getUserNo());
+			String personNo = user.getPersonNo();
+			if(null == personNo || "".equals(personNo)) {
+				user.setPersonNo(User.systemUser.getPersonNo());
 			}
-			String tenantCode = user.getTenantCode();
+			String tenantCode = user.getTenantNo();
 			if(null == tenantCode || "".equals(tenantCode)) {
-				user.setTenantCode(User.systemUser.getTenantCode());
+				user.setTenantNo(User.systemUser.getTenantNo());
+			}
+			String accountNo = user.getAccountNo() ;
+			if(null == accountNo || "".equals(accountNo)) {
+				user.setAccountNo(User.systemAccountNo);
 			}
 		}
 		if(null == operId || "".equals(operId)) {

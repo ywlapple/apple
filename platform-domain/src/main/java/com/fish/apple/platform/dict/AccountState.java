@@ -1,23 +1,22 @@
-package com.fish.apple.core.common.exception;
+package com.fish.apple.platform.dict;
 
 import com.fish.apple.core.common.domain.EnumBase;
 
-public enum Result implements ExceptionKind {
-	Success("0" , "成功"),
-	SystemError("E00000001" , "系统错误,错误详情为:[{0}]"),
-	SystemErrorOG("Fsong") ,
-	IllegalArgument("E0000005" , "参数{0}校验未通过,{1}"),
-	ConnectTimeout("E000006" , "{0}连接超时")
+public enum AccountState implements EnumBase {
+	init( "初始化"),
+	using("使用中"),
+	freeze("冻结"),
+	finish("注销")
 	;
-	private String code ;
-	private String message;
-	private String field;
-	Result(String message){
-		this.code = super.toString();
+	private String field;//字典类型
+	private String code ;//字典枚举值
+	private String message;//枚举值信息
+	AccountState(String code , String message){
+		this.code = code;
 		this.message = message;
 	}
-	Result(String code , String message){
-		this.code = code;
+	AccountState(String message){
+		this.code = super.toString();
 		this.message = message;
 	}
 	@Override
@@ -31,10 +30,11 @@ public enum Result implements ExceptionKind {
 
 	@Override
 	public boolean equals(String code) {
+		getCode();
 		return (null == this.code|"".equals(code)) ? false : this.code.equals(code);
 	}
 	public static boolean contain(String code) {
-		for(EnumBase enumm : Result.values()) {
+		for(EnumBase enumm : AccountState.values()) {
 			if(enumm.equals(code)) {
 				return true;
 			}
@@ -49,7 +49,7 @@ public enum Result implements ExceptionKind {
 		}
 		return this.field;
 	}
-	public String toString() {
-		return this.code;
-	}
+    public String toString() {
+    	return this.code;
+    }
 }

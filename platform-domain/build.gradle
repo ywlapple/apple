@@ -1,0 +1,10 @@
+
+dependencies {
+	// compile('com.fish.apple:core-common:0.0.1-SNAPSHOT')
+	compileOnly('org.apache.commons:commons-lang3:3.7')
+	compileOnly("com.fish.apple:core-web:0.0.1-SNAPSHOT")
+	compileOnly('com.fasterxml.jackson.core:jackson-annotations:2.9.0')
+	compileOnly('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final')
+	compileOnly('org.springframework.data:spring-data-commons:2.0.8.RELEASE')
+	compileOnly('org.springframework.data:spring-data-jpa:2.0.8.RELEASE')
+}

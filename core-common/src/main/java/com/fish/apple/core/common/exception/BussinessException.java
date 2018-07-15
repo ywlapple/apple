@@ -16,17 +16,38 @@ public class BussinessException extends RuntimeException {
 	
 	private EnumBase kind;
 	private ReadableList<Object> args = new ReadableList<>();
-	
-    public BussinessException(Result kind , Throwable e ) {
+
+    public BussinessException() {
+    	super() ;
+    }
+    public BussinessException(Throwable e ) {
     	super(e);
-    	this.kind = kind;
+    }    
+    public BussinessException(String msg ) {
+    	super(msg) ;
+    }
+    public BussinessException(String msg , Throwable e ) {
+    	super(msg , e);
+    }
+    
+    public static BussinessException create() {
+    	return new BussinessException();
+    }
+    public static BussinessException create(String msg) {
+    	return new BussinessException(msg);
+    }
+    public static BussinessException create(Exception e) {
+    	return new BussinessException(e);
+    }
+    public static BussinessException create(String msg ,Exception e) {
+    	return new BussinessException(msg,e);
     }
    
-    public BussinessException errorKind(EnumBase kind) {
+    public BussinessException kind(ExceptionKind kind) {
     	this.kind = kind;
     	return this;
     }
-    public BussinessException arg(Object arg) {
+    public BussinessException msg(Object arg) {
     	this.args.addInternal(arg);
     	return this;
     }

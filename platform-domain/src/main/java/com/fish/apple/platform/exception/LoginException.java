@@ -1,22 +1,27 @@
-package com.fish.apple.core.common.exception;
+package com.fish.apple.platform.exception;
 
 import com.fish.apple.core.common.domain.EnumBase;
+import com.fish.apple.core.common.exception.ExceptionKind;
 
-public enum Result implements ExceptionKind {
-	Success("0" , "成功"),
-	SystemError("E00000001" , "系统错误,错误详情为:[{0}]"),
-	SystemErrorOG("Fsong") ,
-	IllegalArgument("E0000005" , "参数{0}校验未通过,{1}"),
-	ConnectTimeout("E000006" , "{0}连接超时")
+public enum LoginException implements ExceptionKind {
+	accountUnExist		("EUSER00001" , "帐户({0})不存在"),
+	accountUnActive		("EUSER00002" , "帐户({0})未激活"),
+	accountFreeze		("EUSER00003" , "帐户({0})已冻结"),
+	accountFinish		("EUSER00004" , "帐户({0})已注销"),
+	passwordError		("EUSER00005" , "帐户({0})密码错误"),
+	tokenError   		("EUSER00006" , "token建立失败"),
+	tokenValidateError	("EUSER00007" , "token验证错误") ,
+	tokenValidateFailure("EUSER00008" , "token验证失败"),
+	tokenExpired		("EUSER00009" , "token过期")
 	;
 	private String code ;
 	private String message;
 	private String field;
-	Result(String message){
+	LoginException(String message){
 		this.code = super.toString();
 		this.message = message;
 	}
-	Result(String code , String message){
+	LoginException(String code , String message){
 		this.code = code;
 		this.message = message;
 	}
@@ -34,7 +39,7 @@ public enum Result implements ExceptionKind {
 		return (null == this.code|"".equals(code)) ? false : this.code.equals(code);
 	}
 	public static boolean contain(String code) {
-		for(EnumBase enumm : Result.values()) {
+		for(EnumBase enumm : LoginException.values()) {
 			if(enumm.equals(code)) {
 				return true;
 			}

@@ -9,19 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fish.apple.core.web.repository.BIdListener;
 
 import lombok.Data;
 
 @MappedSuperclass
-@EntityListeners({AuditingEntityListener.class,BIdListener.class})
+@EntityListeners({BIdListener.class})
 @Data
 public class Domain implements Serializable {
 
@@ -31,17 +25,13 @@ public class Domain implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-    private String tenantCode;
+    private String tenantNo;
     @JsonIgnore
-    @CreatedDate
     private Date createTime;
     @JsonIgnore
-    @LastModifiedDate
     private Date updateTime;
     @JsonIgnore
-    @CreatedBy
     private String createUser;
     @JsonIgnore
-    @LastModifiedBy
     private String updateUser;
 }
