@@ -108,6 +108,7 @@ project(':core-common') {
 		compileOnly("com.fish.apple:core-web:0.0.1-SNAPSHOT")
 		compileOnly('com.fasterxml.jackson.core:jackson-annotations:2.9.0')
 		compileOnly('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final')
+		compileOnly('org.springframework.data:spring-data-commons:2.0.8.RELEASE')
 	}
 }
 project(':core-web') {

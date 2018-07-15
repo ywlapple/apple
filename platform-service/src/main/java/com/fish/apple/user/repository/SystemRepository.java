@@ -8,6 +8,10 @@ import com.fish.apple.platform.bo.System;
 
 public interface SystemRepository extends JpaRepository<System, Long> {
 
-	List<System> findbyTenantNoIn(List<String> tenantNos);
+	public System findByTenantNoAndSystemNo(String currentTenantNo, String systemNo);
+
+	public void deleteBySystemNo(String systemNo);
+
+	public List<System> findbyTenantNoIn(List<String> tenantNos);
 	
 }

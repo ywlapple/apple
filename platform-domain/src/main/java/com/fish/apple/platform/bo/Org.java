@@ -1,8 +1,12 @@
 package com.fish.apple.platform.bo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.fish.apple.core.common.dict.Able;
 import com.fish.apple.core.common.domain.BId;
 import com.fish.apple.core.common.domain.Domain;
 
@@ -21,6 +25,9 @@ public class Org extends Domain{
 	private String orgName;
 	private Integer orgLevel;
 	private Long parentOrgNo;
+	private Able able;
 	
+	@Transient
+	private List<Org> orgs ;
 	
 }

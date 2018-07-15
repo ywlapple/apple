@@ -12,26 +12,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fish.apple.core.common.dict.Sex;
 import com.fish.apple.core.common.domain.BId;
+import com.fish.apple.core.common.domain.BIdable;
 import com.fish.apple.core.web.repository.BIdListener;
 
 import lombok.Data;
 
 @Data
 @Entity
-@EntityListeners({AuditingEntityListener.class,BIdListener.class})
+@EntityListeners(BIdListener.class)
 @Table(name="t_platform_person")
-public class Person implements Serializable  {
+public class Person implements BIdable ,Serializable  {
 	private static final long serialVersionUID = -1202890621885869400L;
-
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 	@BId
 	private String personNo;
 	private String name;
@@ -40,25 +38,30 @@ public class Person implements Serializable  {
 	private String telephone;
 	private String email;
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
     @JsonIgnore
-    @CreatedDate
     private Date createTime;
     @JsonIgnore
-    @LastModifiedDate
     private Date updateTime;
     @JsonIgnore
-    @CreatedBy
     private String createUser;
     @JsonIgnore
-    @LastModifiedBy
     private String updateUser;
 	
 	@Transient
 	private List<Org> orgs;
 	@Transient
 	private List<Role> roles;
+	@Override
+	public String getBIdName() {
+		return "PersonNo";
+	}
+	@Override
+	public String getBId() {
+		return this.getPersonNo();
+	}
+	@Override
+	public void setBId(String bId) {
+		this.setPersonNo(bId);
+		
+	}
 }

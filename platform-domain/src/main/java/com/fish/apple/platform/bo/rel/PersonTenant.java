@@ -19,7 +19,6 @@ public class PersonTenant extends Domain  {
 	private static final long serialVersionUID = 3785278592868651160L;
 
 	private String personNo;
-	private Able able;
 	private Date startDate;
 	private Date endDate;
 }

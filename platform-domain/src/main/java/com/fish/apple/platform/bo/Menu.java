@@ -3,6 +3,7 @@ package com.fish.apple.platform.bo;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fish.apple.core.common.dict.Able;
 import com.fish.apple.core.common.domain.BId;
 import com.fish.apple.core.common.domain.Domain;
 
@@ -20,8 +21,12 @@ public class Menu extends Domain  {
 	private String systemNo;
 	@BId
 	private String menuNo;
-	private String name;
+	private String menuName;
 	private String disName;
+	private String parentMenuNo ; 
+	private String preMenuNo;
 	private String url;
+	private Able able;
+	private Integer sort ;
 	
 }

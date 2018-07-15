@@ -5,13 +5,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
-import com.fish.apple.core.common.dict.Able;
 import com.fish.apple.platform.bo.System ;
 import com.fish.apple.platform.bo.rel.PersonTenant;
 import com.fish.apple.user.repository.PersonTenantRepository;
 import com.fish.apple.user.repository.SystemRepository;
 
+@Service
 public class TenantSystemService {
 	@Autowired
 	private PersonTenantRepository relRepository ;
@@ -20,7 +21,6 @@ public class TenantSystemService {
 	
 	public List<System> getByPerson(String tenantNo ,  String personNo){
 		PersonTenant qry = new PersonTenant();
-		qry.setAble(Able.enable);
 		qry.setTenantNo(tenantNo);
 		qry.setPersonNo(personNo);
 		Example<PersonTenant> example = Example.of(qry) ; 

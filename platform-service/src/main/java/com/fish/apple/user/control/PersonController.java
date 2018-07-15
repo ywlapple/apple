@@ -2,6 +2,7 @@ package com.fish.apple.user.control;
 
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +27,11 @@ public class PersonController {
 	
 	@Autowired
 	private PersonRepository repository ; 
+	
 	@Autowired
 	private PersonService service ;
 	
-	@RequestMapping(method = RequestMethod.GET ,path="/{id}" )
+	@RequestMapping(method = RequestMethod.GET ,path="/one/{id}" )
 	public Response<Person> getOne(@PathVariable Long id){
 		if(null == id ) {
 			throw BussinessException.create().kind(Result.IllegalArgument).msg("id").msg("id 不能为空");
@@ -39,6 +41,16 @@ public class PersonController {
 		if(accountOp.isPresent()) {
 			return resp.success(accountOp.get());
 		}
+		return resp;
+	}
+	@RequestMapping(method = RequestMethod.GET ,path="/bid/{personNo}" )
+	public Response<Person> getOne(@PathVariable String personNo){
+		if(StringUtils.isBlank(personNo)) {
+			throw BussinessException.create().kind(Result.IllegalArgument).msg("personNo").msg("用户编码 不能为空");
+		}
+		Person account = repository.findByPersonNo(personNo);
+		Response<Person> resp = new Response<>(); 
+		resp.success(account);
 		return resp;
 	}
 	
@@ -65,5 +77,4 @@ public class PersonController {
 		Response<Person> resp = new Response<>();
 		return resp.success(person);
 	}
-	
 }

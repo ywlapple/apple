@@ -15,7 +15,7 @@ public class AccountService {
 	private AccountRepository repository;
 	
 	public Account validate(String accountNo , String password) {
-		Account account = repository.findByAccountNoAndTenantNo(Environment.currentTenantNo() , accountNo);
+		Account account = repository.findByTenantNoAndAccountNo(Environment.currentTenantNo() , accountNo);
 		if(null == account) {
 			throw BussinessException.create().kind(LoginException.accountUnExist).msg(account) ;
 		}
