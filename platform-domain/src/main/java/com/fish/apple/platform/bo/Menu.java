@@ -1,7 +1,10 @@
 package com.fish.apple.platform.bo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fish.apple.core.common.dict.Able;
 import com.fish.apple.core.common.domain.BId;
@@ -28,5 +31,8 @@ public class Menu extends Domain  {
 	private String url;
 	private Able able;
 	private Integer sort ;
+	
+	@Transient
+	private List<Menu> children;
 	
 }

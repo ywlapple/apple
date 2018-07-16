@@ -95,9 +95,6 @@ public class UserService {
 		List<RoleMenu> roleMenus = roleMenuRepository.findByTenantNoAndRoleNoInAndAble(Environment.currentTenantNo() , roleNos , Able.enable);
 		if(null == roleMenus || roleMenus.size() == 0) return null;
 		List<String> menuNos = roleMenus.stream().map(RoleMenu::getMenuNo).collect(Collectors.toList());
-		List<Menu> menuList = menuRepository.findByTenantNoAndSystemNoAndMenuNoIn(Environment.currentTenantNo(), systemNo, menuNos) ;
-		if(null == menuList || menuList.size() == 0) return null ;
-		
 		// 组装menu树结构
 		
 		
