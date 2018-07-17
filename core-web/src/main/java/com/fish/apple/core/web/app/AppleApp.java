@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AliasFor;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
@@ -48,7 +47,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Documented
 @EnableJpaRepositories
 @SpringBootApplication
-@EnableJpaAuditing
 @ServletComponentScan
 public @interface AppleApp {
 	@AliasFor(annotation = ServletComponentScan.class  ,attribute="basePackages" )

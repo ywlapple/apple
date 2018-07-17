@@ -32,7 +32,7 @@ public class TokenService {
 	private String header = "{\"type\":\"JWT\",\"alg\":\"HS256\"}";
 	private final String split = "." ;
 	
-	private final ObjectMapper mapper = new ObjectMapper();
+	public static final ObjectMapper mapper = new ObjectMapper();
 	
 	public String token(User user) {
 		try {
@@ -108,5 +108,28 @@ public class TokenService {
 	    return Base64.getEncoder().encodeToString(buff);
 	}
 	
+	public String menuSign(String orgNo , String roleNo , String menuNo ) {
+		String info = orgNo + split + roleNo +split + menuNo ; 
+		String signature;
+		try {
+			signature = Hmacsha256(properties.getKey() , info );
+		} catch (Exception e) {
+			throw BussinessException.create(e).kind(LoginException.menuSignError);
+		} 
+		return info+split+signature ;
+	}
+	
+	public void validateMenuSign(String menuSign) {
+		try {
+			int indexOf = menuSign.lastIndexOf(split);
+			String info = menuSign.substring(0, indexOf);
+			String hmacsha256 = Hmacsha256(properties.getKey() , info);
+			if( ! hmacsha256.equals(menuSign.substring(indexOf+1))) {
+				throw BussinessException.create().kind(LoginException.tokenValidateFailure);
+			}
+		} catch(InvalidKeyException | NoSuchAlgorithmException e ) {
+			throw BussinessException.create("菜单签名("+ menuSign + ")验签错误" ,e).kind(LoginException.tokenValidateError);
+		} 
+	}
 	
 }

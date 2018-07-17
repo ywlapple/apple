@@ -34,5 +34,6 @@ public class Menu extends Domain  {
 	
 	@Transient
 	private List<Menu> children;
-	
+	@Transient
+	private String sign;
 }

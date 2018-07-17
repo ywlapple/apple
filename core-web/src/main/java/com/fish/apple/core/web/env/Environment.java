@@ -25,8 +25,6 @@ public class Environment {
 	private long endTime;
 	private int level;
 	
-	
-	
 	public static Environment currentEnv() {
         return currentEnv.get() ;
 	}
@@ -51,6 +49,12 @@ public class Environment {
 	public static String currentAccountNo() {
 		return currentEnv.get().getUser().getAccountNo();
 	}
+	public static String currentRoleNo() {
+		return currentEnv.get().getUser().getRoleNo();
+	}	
+	public static String currentOrgNo() {
+		return currentEnv.get().getUser().getOrgNo();
+	}	
 	
 	protected static Environment initEnv(String tenantNo , String personNo ,String url) {
 		User user = new User();

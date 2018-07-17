@@ -12,7 +12,9 @@ public enum LoginException implements ExceptionKind {
 	tokenError   		("EUSER00006" , "token建立失败"),
 	tokenValidateError	("EUSER00007" , "token验证错误") ,
 	tokenValidateFailure("EUSER00008" , "token验证失败"),
-	tokenExpired		("EUSER00009" , "token过期")
+	tokenExpired		("EUSER00009" , "token过期"),
+	menuSignError		("EUSER00010" , "menu签名失败"),
+	menuSignFailure		("EUSER00011" , "menu验签失败")
 	;
 	private String code ;
 	private String message;

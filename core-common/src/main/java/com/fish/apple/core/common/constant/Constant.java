@@ -22,6 +22,8 @@ public enum Constant implements EnumBase {
 	scheduleInstancePropertyKey("org.quartz.scheduler.instanceName: DefaultQuartzScheduler" , "调度器实例名称配置key") ,
 	coreLog("com.fish.apple.core.log" , "核心包日志log名称") ,
 	DomainBasePackage("com.fish.apple" , "jpa扫描包含业务id的entity的基础包路径"),
+	tokenKey("_token" , "token在http请求中的key"),
+	menuSignKey("_menu" , "菜单信息在http请求中的key")
 	
 	;
 	

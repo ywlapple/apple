@@ -35,7 +35,6 @@ public class PersonService {
 			person = repository.saveAndFlush(person);
 			//账号关联
 			Account qrry = new Account();
-			qrry.setTenantNo(Environment.currentTenantNo());
 			qrry.setAccountNo(Environment.currentAccountNo());
 			Example<Account> accExample = Example.of(qrry);
 			Optional<Account> accountOp = accountRepository.findOne(accExample);

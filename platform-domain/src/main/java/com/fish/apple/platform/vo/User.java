@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class User {
+	private String tenantNo;
 	private Account account;
 	private Person person;
 	private List<com.fish.apple.platform.bo.System> systems;
