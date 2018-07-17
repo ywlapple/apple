@@ -15,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fish.apple.core.common.exception.BussinessException;
 import com.fish.apple.platform.bo.Account;
@@ -25,14 +26,12 @@ import com.fish.apple.user.config.TokenProperties;
 @Service
 public class TokenService {
 
-	@Autowired
-	private TokenProperties properties ;
+
 	
 	private String MAC_INSTANCE_NAME = "HMacSHA256";
 	private String header = "{\"type\":\"JWT\",\"alg\":\"HS256\"}";
 	private final String split = "." ;
 	
-	public static final ObjectMapper mapper = new ObjectMapper();
 	
 	public String token(User user) {
 		try {
@@ -49,7 +48,7 @@ public class TokenService {
 			}else {
 				account.setTokenRefresh(null) ;
 			}
-			String claim = mapper.writeValueAsString(user) ;
+			String claim = JSONObject.toJSONString(user) ;
 			Encoder encoder = Base64.getEncoder();
 			String info = encoder.encodeToString(header.getBytes())+ split +encoder.encodeToString(claim.getBytes()) ;
 			String signature = Hmacsha256(properties.getKey() , info );
@@ -77,7 +76,7 @@ public class TokenService {
 			if( !header.equals(new String(decoder.decode(split2[0])))) {
 				throw BussinessException.create().kind(LoginException.tokenValidateFailure); 
 			}
-			User user = mapper.readValue(decoder.decode(split2[1]), User.class) ;
+			User user = JSONObject.parseObject(decoder.decode(split2[1]), User.class) ;
 			
 			Account account = user.getAccount();
 			Date tokenEnd = account.getTokenEnd();
@@ -85,29 +84,18 @@ public class TokenService {
 			if(now.after(tokenEnd)) {
 				throw BussinessException.create().kind(LoginException.tokenExpired);
 			}
+			//  验证用户权限 
+			
 			Date refresh = account.getTokenRefresh();
 			if(null != refresh && now.after(refresh) ) {
 				return token(user);
 			}
-		} catch(UnsupportedEncodingException e) {
-			throw BussinessException.create("token("+ token + ")解析错误" ,e).kind(LoginException.tokenValidateError);
-			
 		} catch(InvalidKeyException | NoSuchAlgorithmException e ) {
 			throw BussinessException.create("token("+ token + ")验签错误" ,e).kind(LoginException.tokenValidateError);
-		} catch (IOException e) {
-			throw BussinessException.create("token("+ token + ")解析用户信息错误" ).kind(LoginException.tokenValidateError) ;
 		} 
 		return token;
 	}
 
-	private String Hmacsha256(String secret, String message) throws NoSuchAlgorithmException, InvalidKeyException {
-	    Mac hmac_sha256 = Mac.getInstance(MAC_INSTANCE_NAME);
-	    SecretKeySpec key = new SecretKeySpec(secret.getBytes(), MAC_INSTANCE_NAME);
-	    hmac_sha256.init(key);
-	    byte[] buff = hmac_sha256.doFinal(message.getBytes());
-	    return Base64.getEncoder().encodeToString(buff);
-	}
-	
 	public String menuSign(String orgNo , String roleNo , String menuNo ) {
 		String info = orgNo + split + roleNo +split + menuNo ; 
 		String signature;

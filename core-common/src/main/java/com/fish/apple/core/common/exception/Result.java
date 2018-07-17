@@ -5,7 +5,6 @@ import com.fish.apple.core.common.domain.EnumBase;
 public enum Result implements ExceptionKind {
 	Success("0" , "成功"),
 	SystemError("E00000001" , "系统错误,错误详情为:[{0}]"),
-	SystemErrorOG("Fsong") ,
 	IllegalArgument("E0000005" , "参数{0}校验未通过,{1}"),
 	ConnectTimeout("E000006" , "{0}连接超时")
 	;

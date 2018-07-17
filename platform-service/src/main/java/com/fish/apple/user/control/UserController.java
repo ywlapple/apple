@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fish.apple.core.common.api.Response;
 import com.fish.apple.platform.bo.Account;
 import com.fish.apple.platform.dict.AccountState;
+import com.fish.apple.platform.vo.Authen;
 import com.fish.apple.platform.vo.User;
 import com.fish.apple.user.repository.AccountRepository;
 import com.fish.apple.user.service.MenuService;
@@ -62,6 +63,20 @@ public class UserController {
 	public Response<Map<String, Object>> getMenus(@RequestParam String systemNo){
 		Assert.notNull(systemNo , "系统编号不能为空");
 		Map<String, Object> list = menuServcie.getValidMenuGroupByOrg(systemNo);
+		Response<Map<String, Object>> resp = new Response<>();
+		return resp.success(list);
+	}
+	
+	/**
+	 * 校验 用户权限
+	 * token认证 ， 如果是菜单的话要进行menu认证，
+	 * 1.验签  2.验证token过期 或者刷新token  3.验证是否需要从菜单进入，如果需要的话，是否有权限。
+	 * @param systemNo
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST , path="/auth")
+	public Response<Map<String, Object>> authen(@RequestParam Authen authen){
+		service.authen(authen);
 		Response<Map<String, Object>> resp = new Response<>();
 		return resp.success(list);
 	}
