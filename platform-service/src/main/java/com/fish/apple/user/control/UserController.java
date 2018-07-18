@@ -75,9 +75,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST , path="/auth")
-	public Response<Map<String, Object>> authen(@RequestParam Authen authen){
-		service.authen(authen);
-		Response<Map<String, Object>> resp = new Response<>();
-		return resp.success(list);
+	public Response<String> authen(@RequestParam Authen authen){
+		String token = service.authen(authen);
+		Response<String> resp = new Response<>();
+		return resp.success(token);
 	}
 }

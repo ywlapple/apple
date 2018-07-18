@@ -22,6 +22,7 @@ import com.fish.apple.platform.bo.rel.RoleMenu;
 import com.fish.apple.user.repository.MenuRepository;
 import com.fish.apple.user.repository.PersonRoleOrgRepository;
 import com.fish.apple.user.repository.RoleMenuRepository;
+import com.fish.apple.user.util.LoginUtil;
 
 @Service
 public class MenuService {
@@ -31,8 +32,6 @@ public class MenuService {
 	private PersonRoleOrgRepository personRoleOrgRepository ;
 	@Autowired
 	private RoleMenuRepository roleMenuRepository ; 
-	
-	private TokenService tokenservie;
 	
 	public Map<String, Object> getValidMenuGroupByOrg(String systemNo){
 		
@@ -61,7 +60,7 @@ public class MenuService {
 			roleMenusGroupByRoleAndOrg.forEach(roleMenu->{
 				List<Menu> menusGroupByOrgRole = menuList.stream().filter( menu -> menu.getMenuNo().equals(roleMenu.getMenuNo())).collect(Collectors.toList());
 				menusGroupByOrgRole.forEach(menu->{
-					String sign = tokenservie.menuSign(personRoleInOrg.getOrgNo(), roleMenu.getRoleNo(), menu.getMenuNo());
+					String sign = LoginUtil.menuSign(personRoleInOrg.getOrgNo(), roleMenu.getRoleNo(),  menu.getMenuNo()) ;
 					menu.setSign(sign);
 					leafMenuList.add(menu);
 				});
