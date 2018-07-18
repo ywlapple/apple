@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import com.fish.apple.core.web.app.AppleApp;
 
 @AppleApp
-public class UserApplication {
+public class PlatformApplication {
 
 	
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(UserApplication.class, args);
+		SpringApplication.run(PlatformApplication.class, args);
 	}
 
 }
