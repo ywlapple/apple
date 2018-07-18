@@ -29,7 +29,7 @@ public class TenantSystemService {
 			return null ; 
 		}
 		List<String> tenantNos = personTenants.stream().map(PersonTenant::getTenantNo).collect(Collectors.toList());
-		List<System> systems = systemRepository.findbyTenantNoIn(tenantNos);
+		List<System> systems = systemRepository.findByTenantNoIn(tenantNos);
 		if(null == systems || systems.size() == 0) return null;
 		return systems;
 	}

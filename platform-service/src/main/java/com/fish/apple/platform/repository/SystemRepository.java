@@ -12,6 +12,6 @@ public interface SystemRepository extends JpaRepository<System, Long> {
 
 	public void deleteBySystemNo(String systemNo);
 
-	public List<System> findbyTenantNoIn(List<String> tenantNos);
+	public List<System> findByTenantNoIn(List<String> tenantNos);
 	
 }

@@ -6,6 +6,4 @@ import com.fish.apple.platform.bo.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	Account findByAccountNo(String accountNo);
-
-	Account findByTenantNoAndAccountNo(String currentTenantNo, String accountNo);
 }

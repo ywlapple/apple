@@ -1,21 +1,22 @@
 package com.fish.apple.platform.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fish.apple.core.common.exception.BussinessException;
-import com.fish.apple.core.web.env.Environment;
 import com.fish.apple.platform.bo.Account;
 import com.fish.apple.platform.dict.AccountState;
 import com.fish.apple.platform.exception.LoginException;
 import com.fish.apple.platform.repository.AccountRepository;
 import com.fish.apple.platform.util.LoginUtil;
 
+@Service
 public class AccountService {
 	@Autowired
 	private AccountRepository repository;
 	
 	public Account validate(String accountNo , String password) {
-		Account account = repository.findByTenantNoAndAccountNo(Environment.currentTenantNo() , accountNo);
+		Account account = repository.findByAccountNo(accountNo);
 		if(null == account) {
 			throw BussinessException.create().kind(LoginException.accountUnExist).msg(account) ;
 		}
