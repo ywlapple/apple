@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fish.apple.core.web.env.Environment;
@@ -13,6 +14,7 @@ import com.fish.apple.platform.bo.Person;
 import com.fish.apple.platform.repository.AccountRepository;
 import com.fish.apple.platform.repository.PersonRepository;
 
+@Service
 public class PersonService {
 	@Autowired
 	private PersonRepository repository ;
